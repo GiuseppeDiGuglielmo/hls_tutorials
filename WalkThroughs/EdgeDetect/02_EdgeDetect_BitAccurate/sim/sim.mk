@@ -2,7 +2,7 @@ CXX ?= g++
 
 CXX_FLAGS :=
 CXX_FLAGS += -Wall
-#CXX_FLAGS += -DDEBUG
+CXX_FLAGS += -DDEBUG
 #CXX_FLAGS += -Wno-unknown-pragmas
 #CXX_FLAGS += -Wno-unused-label
 CXX_FLAGS += -Wno-maybe-uninitialized
@@ -13,11 +13,12 @@ LD_FLAGS :=
 VPATH :=
 VPATH += tb
 VPATH += src
+#VPATH += 01_EdgeDetect_Algorithm/src
 VPATH += $(MGC_HOME)/shared/include/bmpUtil/
 
 TB_SRCS :=
 TB_SRCS += bmp_io.cpp
-TB_SRCS += EdgeDetect_Algorithm_tb.cpp
+TB_SRCS += EdgeDetect_BitAccurate_tb.cpp
 DUT_SRCS :=
 
 SRCS := $(TB_SRCS) $(DUT_SRCS)
@@ -25,6 +26,7 @@ SRCS := $(TB_SRCS) $(DUT_SRCS)
 INC_DIR :=
 INC_DIR += -Itb
 INC_DIR += -Isrc
+INC_DIR += -I../01_EdgeDetect_Algorithm/src
 INC_DIR += -I$(MGC_HOME)/shared/include
 INC_DIR += -I$(COMMON_DIR)/inc
 INC_DIR += -I/usr/include/x86_64-linux-gnu
@@ -40,7 +42,8 @@ TARGET := $(SIM_DIR)/simple
 OBJS := $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
 DATA_IN := $(COMMON_DIR)/data/image/people_gray.bmp
-DATA_OUT := sim/people_gray_output.bmp
+ALGO_DATA_OUT := sim/people_gray_algo.bmp
+BA_DATA_OUT := sim/people_gray_ba.bmp
 
 $(TARGET): $(OBJS)
 	@echo "INFO: LD $(OBJS) -> $@"
@@ -51,9 +54,9 @@ $(OBJ_DIR)/%.o: %.cpp
 	@$(CXX) $(CXX_FLAGS) $(INC_DIR) -c $< -o $@
 
 sim: $(TARGET)
-	@echo "INFO: RUN $(TARGET) $(DATA_IN) $(DATA_OUT)"
+	@echo "INFO: RUN $(TARGET) $(DATA_IN) $(ALGO_DATA_OUT) $(BA_DATA_OUT)"
 	@echo "INFO: =========================================================================="
-	@./$(TARGET) $(DATA_IN) $(DATA_OUT)
+	@./$(TARGET) $(DATA_IN) $(ALGO_DATA_OUT) $(BA_DATA_OUT)
 	@echo "INFO: =========================================================================="
 .PHONY: sim
 
