@@ -2,9 +2,7 @@
 # Sliding Window Walkthrough - Synthesizable
 #------------------------------------------------------------
 
-# Establish the location of this script and use it to reference all
-# other files in this example
-set sfd [file dirname [info script]]
+set PROJECT_BASE_DIR ".."
 
 # Reset the options to the factory defaults
 options defaults
@@ -14,9 +12,12 @@ project new
 
 flow package require /SCVerify
 flow package option set /SCVerify/USE_CCS_BLOCK true
-flow package option set /SCVerify/INVOKE_ARGS "[file join $sfd image people_gray.bmp] out_algorithm.bmp out_hw.bmp"
+flow package option set /SCVerify/INVOKE_ARGS "$COMMON_DIR/data/image/people_gray.bmp $PROJECT_BASE_DIR/sim/out_algorithm.bmp $PROJECT_BASE_DIR/sim/out_hw.bmp"
 
-solution file add [file join $sfd EdgeDetect_Synthesizable_tb.cpp] -type C++
+options set Input/SearchPath "$COMMON_DIR/inc"
+
+solution file add "$PROJECT_BASE_DIR/src/EdgeDetect_Synthesizable.h" -type C++
+solution file add "$PROJECT_BASE_DIR/tb/EdgeDetect_Synthesizable_tb.cpp" -type C++ -exclude true
 solution file add {$MGC_HOME/shared/include/bmpUtil/bmp_io.cpp} -type C++ -exclude true
 
 go analyze

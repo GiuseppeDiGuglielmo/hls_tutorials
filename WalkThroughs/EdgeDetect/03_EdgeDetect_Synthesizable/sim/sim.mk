@@ -3,8 +3,8 @@ CXX ?= g++
 CXX_FLAGS :=
 CXX_FLAGS += -Wall
 CXX_FLAGS += -DDEBUG
-#CXX_FLAGS += -Wno-unknown-pragmas
-#CXX_FLAGS += -Wno-unused-label
+CXX_FLAGS += -Wno-unknown-pragmas
+CXX_FLAGS += -Wno-unused-label
 CXX_FLAGS += -Wno-maybe-uninitialized
 CXX_FLAGS += -Wno-unused-variable
 
@@ -13,12 +13,11 @@ LD_FLAGS :=
 VPATH :=
 VPATH += tb
 VPATH += src
-#VPATH += 01_EdgeDetect_Algorithm/src
 VPATH += $(MGC_HOME)/shared/include/bmpUtil/
 
 TB_SRCS :=
 TB_SRCS += bmp_io.cpp
-TB_SRCS += EdgeDetect_BitAccurate_tb.cpp
+TB_SRCS += EdgeDetect_Synthesizable_tb.cpp
 DUT_SRCS :=
 
 SRCS := $(TB_SRCS) $(DUT_SRCS)
@@ -41,7 +40,6 @@ TARGET := $(SIM_DIR)/simple
 
 OBJS := $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
-DATA_IN := $(COMMON_DIR)/data/image/people_gray.bmp
 DATA_OUT_REF := sim/people_gray_ref.bmp
 DATA_OUT_IMP := sim/people_gray_imp.bmp
 
