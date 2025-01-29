@@ -3,8 +3,11 @@ import numpy as np
 
 def print_data(data, title):
     print(title)
+    # Determine the maximum width of the numbers in the data for formatting
+    max_width = max(len(str(item)) for row in data for item in row)
     for row in data:
-        print(row)
+        # Print each row with right-aligned elements
+        print(" ".join(f"{item:>{max_width}}" for item in row))
 
 def compare(data1, data2):
     if np.array_equal(data1, data2):

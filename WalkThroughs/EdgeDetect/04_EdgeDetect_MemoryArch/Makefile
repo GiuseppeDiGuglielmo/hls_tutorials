@@ -10,6 +10,7 @@ GUI ?= 0
 
 DATA_IN := $(COMMON_DIR)/data/image/people_gray.bmp
 
+include py/sim.mk
 include sim/sim.mk
 include syn/syn.mk
 
