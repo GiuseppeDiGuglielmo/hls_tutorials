@@ -86,7 +86,6 @@ def main(image_height, image_width, kernel, random_init, seed):
 
     return rv
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Compute horizontal derivative of an image.')
     parser.add_argument('height', type=int, help='Height of the image')

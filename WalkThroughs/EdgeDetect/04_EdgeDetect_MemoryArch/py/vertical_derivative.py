@@ -72,29 +72,22 @@ def vertical_derivative_orig(dat_in, dy, image_height, image_width, kernel):
             line_buf1[x] = pix1
             line_buf0[x] = pix0
 
-
 def main(image_height, image_width, kernel, random_init, seed):
     # Return value
     rv = 0
 
     # Initialize image data and output derivative array
     dat_in = initialize_image(image_height, image_width, random_init, seed)
-    dx_orig = [[0] * image_width for _ in range(image_height)]
-    #dx = [[0] * image_width for _ in range(image_height)]
-
+    dx = [[0] * image_width for _ in range(image_height)]
 
     # Compute the horizontal derivative
-    vertical_derivative_orig(dat_in, dx_orig, image_height, image_width, kernel)
+    vertical_derivative_orig(dat_in, dx, image_height, image_width, kernel)
 
     # Print the results
     print_data(dat_in, "Input Image:")
-    print_data(dx_orig, "Output Vertical Derivatives (Original):")
-    #print_data(dx, "Output Vertical Derivatives:")
-
-    #rv = compare(dx_orig, dx)
+    print_data(dx, "Output Vertical Derivatives:")
 
     return rv
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Compute horizontal derivative of an image.')
