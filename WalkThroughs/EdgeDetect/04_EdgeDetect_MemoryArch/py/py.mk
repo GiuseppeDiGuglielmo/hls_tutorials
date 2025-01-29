@@ -4,15 +4,16 @@ PY_KERNEL := 1 1 1
 
 #PY_RANDOM := --random
 #PY_SEED := --seed 42
+#PY_VERBOSE := --verbose
 
 run-vertical-derivative-py:
 	cd py && \
 		python vertical_derivative.py \
-			$(PY_RANDOM) $(PY_SEED) --kernel $(PY_KERNEL) $(PY_HEIGHT) $(PY_WIDTH)
+			$(PY_RANDOM) $(PY_SEED) $(PY_VERBOSE) --kernel $(PY_KERNEL) $(PY_HEIGHT) $(PY_WIDTH)
 .PHONY: run-vertical-derivative-py
 
 run-horizontal-derivative-py:
 	cd py && \
 		python horizontal_derivative.py \
-			$(PY_RANDOM) $(PY_SEED) --kernel $(PY_KERNEL) $(PY_HEIGHT) $(PY_WIDTH)
+			$(PY_RANDOM) $(PY_SEED) $(PY_VERBOSE) --kernel $(PY_KERNEL) $(PY_HEIGHT) $(PY_WIDTH)
 .PHONY: run-horizontal-derivative-py

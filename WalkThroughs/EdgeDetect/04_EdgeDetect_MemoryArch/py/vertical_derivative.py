@@ -1,20 +1,21 @@
 import argparse
 import numpy as np
+import logging
 
 def print_data(data, title):
-    print(title)
+    logging.info(title)
     # Determine the maximum width of the numbers in the data for formatting
     max_width = max(len(str(item)) for row in data for item in row)
     for row in data:
         # Print each row with right-aligned elements
-        print(" ".join(f"{item:>{max_width}}" for item in row))
+        logging.info(" ".join(f"{item:>{max_width}}" for item in row))
 
 def compare(data1, data2):
     if np.array_equal(data1, data2):
-        print("Outputs match!")
+        logging.info("Outputs match!")
         return 0
     else:
-        print("Outputs does NOT match!")
+        logging.info("Outputs does NOT match!")
         return 1
 
 def initialize_image(height, width, random_init, seed):
@@ -35,8 +36,14 @@ def vertical_derivative_orig(dat_in, dy, image_height, image_width, kernel):
 
     # Iterate over each row plus one extra for boundary conditions
     for y in range(image_height + 1):
+
+        logging.debug(f"row # {y} ========================================")
+
         # Iterate over each column
         for x in range(image_width):
+
+            logging.debug(f"col # {x} --------------")
+
             # Vertical window of pixels
             pix2 = line_buf1[x]
             pix1 = line_buf0[x]
@@ -52,9 +59,13 @@ def vertical_derivative_orig(dat_in, dy, image_height, image_width, kernel):
             # Handle bottom boundary condition
             if y >= image_height:
                 pix0 = pix1  # Bottom boundary (replicate pix1 above into pix0)
+ 
+            logging.debug(f"{line_buf0}")
+            logging.debug(f"{line_buf1}")
             
             # Calculate derivative when possible
             if y > 0:
+                logging.debug(f"{pix2} {pix1} {pix0}")
                 dy[y-1][x] = pix2 * kernel[0] + pix1 * kernel[1] + pix0 * kernel[2]
 
             # Update line buffers for next iteration
@@ -92,11 +103,16 @@ if __name__ == "__main__":
     parser.add_argument('--kernel', type=int, nargs=3, default=[-1, 0, 1], help='Derivative kernel as three integers')
     parser.add_argument('--random', action='store_true', help='Initialize the image with random pixel values')
     parser.add_argument('--seed', type=int, default=None, help='Use a random seed to generate pixel values')
-
+    parser.add_argument('--verbose', action='store_true', default=False, help="Increase output verbosity")
     args = parser.parse_args()
 
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+    else:
+        logging.basicConfig(level=logging.INFO, format='%(message)s')
+
     if args.height < 3:
-        print("Error: Image height must be at least 3 pixels")
+        logging.info("Error: Image height must be at least 3 pixels")
         exit(1)
     
     rv = main(args.height, args.width, args.kernel, args.random, args.seed)
