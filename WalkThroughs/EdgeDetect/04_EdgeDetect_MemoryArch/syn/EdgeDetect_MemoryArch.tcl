@@ -12,7 +12,7 @@ project new
 
 flow package require /SCVerify
 flow package option set /SCVerify/USE_CCS_BLOCK true
-flow package option set /SCVerify/INVOKE_ARGS "$COMMON_DIR/data/image/people_gray.bmp $PROJECT_BASE_DIR/sim/out_algorithm.bmp $PROJECT_BASE_DIR/sim/out_hw.bmp"
+flow package option set /SCVerify/INVOKE_ARGS "$COMMON_DIR/data/image/people_gray.bmp $PROJECT_BASE_DIR/sim/out_algorithm.bmp $PROJECT_BASE_DIR/sim/out_hw.bmp
 
 options set Input/SearchPath "$COMMON_DIR/inc"
 
