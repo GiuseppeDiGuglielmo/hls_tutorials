@@ -17,10 +17,8 @@ flow package option set /SCVerify/INVOKE_ARGS "$COMMON_DIR/data/image/people_gra
 
 options set Input/SearchPath "$COMMON_DIR/inc $PROJECT_BASE_DIR/../01_EdgeDetect_Algorithm/src $PROJECT_BASE_DIR/src"
 
-#solution file add "$PROJECT_BASE_DIR/src/EdgeDetect_SinglePort_Programable.h" -type C++
-#solution file add "$PROJECT_BASE_DIR/../01_EdgeDetect_Algorithm/src/EdgeDetect_Algorithm.h" -type C++ -exclude true
-solution file add "$PROJECT_BASE_DIR/tb/EdgeDetect_SinglePort_Programable_tb.cpp" -type C++
 solution file add {$MGC_HOME/shared/include/bmpUtil/bmp_io.cpp} -type C++ -exclude true
+solution file add "$PROJECT_BASE_DIR/tb/EdgeDetect_SinglePort_Programable_tb.cpp" -type C++
 
 go analyze
 #directive set -DESIGN_HIERARCHY {{EdgeDetect_SinglePort<1296, 864>} {EdgeDetect_SinglePort<1296, 864>::verticalDerivative} {EdgeDetect_SinglePort<1296, 864>::horizontalDerivative} {EdgeDetect_SinglePort<1296, 864>::magnitudeAngle}}

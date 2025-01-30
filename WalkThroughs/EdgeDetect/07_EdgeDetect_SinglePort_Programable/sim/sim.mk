@@ -17,7 +17,7 @@ VPATH += $(MGC_HOME)/shared/include/bmpUtil/
 
 TB_SRCS :=
 TB_SRCS += bmp_io.cpp
-TB_SRCS += EdgeDetect_SinglePort_Programable_tb.cpp
+TB_SRCS += $(DESIGN)_tb.cpp
 DUT_SRCS :=
 
 SRCS := $(TB_SRCS) $(DUT_SRCS)
